@@ -1,0 +1,23 @@
+{
+  "name": "second-brain",
+  "version": "1.0.0",
+  "description": "A second brain app backend for storing and sharing your thoughts",
+  "main": "./src/index.ts",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "author": "Yasir Naseem",
+  "license": "ISC",
+  "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.3",
+    "nodemon": "^3.1.10",
+    "zod": "^4.0.5"
+  }
+}
