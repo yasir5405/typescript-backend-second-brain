@@ -4,7 +4,8 @@
   "description": "A second brain app backend for storing and sharing your thoughts",
   "main": "./src/index.ts",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "nodemon"
   },
   "author": "Yasir Naseem",
   "license": "ISC",
