@@ -1,19 +1,19 @@
+import dotenv from "dotenv";
 import express from "express";
-import mongoose from "mongoose";
 import { userRouter } from "./routes/user.route";
+import cors from "cors";
+import { connectDB } from "./db/db";
+dotenv.config();
 
-const connectDB = async (): Promise<void> => {
-  await mongoose
-    .connect(
-      "mongodb+srv://yasirnaseem1920:yasirnaseem1920@cluster0.ybzjb1p.mongodb.net/second-brain"
-    )
-    .then(() => console.log("Database has been connected."))
-    .catch((error) => console.log("Error connecting to the database." + error));
-};
 connectDB();
 
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://memora-delta.vercel.app"],
+  })
+);
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to second brain app." });
