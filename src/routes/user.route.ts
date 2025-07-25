@@ -5,10 +5,10 @@ import {
   validateSignup,
   verifyJWT,
 } from "../middlewares/auth.middleware";
-import { userModel } from "../models/user.model.ts";
+import { userModel } from "../models/user.model";
 import bcrypt from "bcrypt";
 import jsonwebtoken from "jsonwebtoken";
-import { ContentModel } from "../models/content.model.ts";
+import { ContentModel } from "../models/content.model";
 
 const userRouter = Router();
 

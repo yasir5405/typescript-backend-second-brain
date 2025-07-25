@@ -7,8 +7,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   }
 }
