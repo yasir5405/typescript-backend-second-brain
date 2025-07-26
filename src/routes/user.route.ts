@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { z, ZodError } from "zod";
 import {
+  comparePassword,
   hashPassword,
   validateSignup,
   verifyJWT,
@@ -12,34 +13,41 @@ import { ContentModel } from "../models/content.model";
 
 const userRouter = Router();
 
-userRouter.post("/signup", validateSignup, hashPassword, async (req, res) => {
-  const { username, password } = req.body;
+userRouter.post(
+  "/signup",
+  comparePassword,
+  validateSignup,
+  hashPassword,
+  async (req, res) => {
+    const { name, username, password } = req.body;
 
-  try {
-    const doesUserExists = await userModel.findOne({ username: username });
-    if (doesUserExists) {
-      return res.status(403).json({
-        status: false,
-        message: "User with that username already exists.",
+    try {
+      const doesUserExists = await userModel.findOne({ username: username });
+      if (doesUserExists) {
+        return res.status(403).json({
+          status: false,
+          message: "Username already taken.",
+        });
+      }
+
+      const newUser = await userModel.create({
+        name: name,
+        username: username,
+        password: password,
       });
+
+      res.status(201).json({
+        status: true,
+        message: "User successfully registered.",
+        user: newUser,
+      });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ status: false, message: "Internal server error." });
     }
-
-    const newUser = await userModel.create({
-      username: username,
-      password: password,
-    });
-
-    res.status(201).json({
-      status: true,
-      message: "User successfully registered.",
-      user: newUser,
-    });
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ status: false, message: "Internal server error." });
   }
-});
+);
 
 userRouter.post("/login", async (req, res) => {
   const requiredBody = z.object({
@@ -59,8 +67,8 @@ userRouter.post("/login", async (req, res) => {
   if (!parsedBody.success) {
     return res.status(411).json({
       status: false,
-      message: "Invalid data format.",
-      errors: parsedBody.error.issues[0].message,
+      // message: "Invalid data format.",
+      message: parsedBody.error.issues[0].message,
     });
   }
 

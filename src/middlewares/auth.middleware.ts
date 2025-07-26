@@ -29,6 +29,7 @@ const validateSignup = async (
   next: NextFunction
 ) => {
   const requiredBody = z.object({
+    name: z.string(),
     username: z
       .string()
       .min(4, { message: "Username should be at least 4 characters long." })
@@ -45,8 +46,8 @@ const validateSignup = async (
   if (!parsedBody.success) {
     return res.status(411).json({
       status: false,
-      message: "Invalid data format",
-      errors: parsedBody.error.issues[0].message,
+      // message: "Invalid data format",
+      message: parsedBody.error.issues[0].message,
     });
   }
 
@@ -74,7 +75,7 @@ const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
 
     if (!user) {
       return res
-        .status(403)
+        .status(401)
         .json({ status: false, message: "Invalid or expired token." });
     }
 
@@ -90,4 +91,20 @@ const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { hashPassword, validateSignup, verifyJWT };
+const comparePassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      status: false,
+      message: "Password and confirm password do not match!",
+    });
+  }
+
+  next();
+};
+
+export { hashPassword, validateSignup, verifyJWT, comparePassword };
