@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import { userRouter } from "./routes/user.route";
 import cors from "cors";
 import { connectDB } from "./db/db";
-dotenv.config();
 
 connectDB();
 
@@ -21,6 +21,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1", userRouter);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`The server is running at: http://localhost:3000`);
 });
