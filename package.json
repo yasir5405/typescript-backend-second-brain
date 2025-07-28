@@ -2,10 +2,10 @@
   "name": "second-brain",
   "version": "1.0.0",
   "description": "A second brain app backend for storing and sharing your thoughts",
-  "main": "./src/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon",
+    "dev": "nodemon src/index.ts",
     "start": "node dist/index.js",
     "postinstall": "npm run build"
   },
