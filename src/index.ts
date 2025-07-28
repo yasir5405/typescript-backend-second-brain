@@ -19,12 +19,14 @@ app.use(
   })
 );
 
+const PORT = process.env.PORT || 3000;
+
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to second brain app." });
 });
 
 app.use("/api/v1", userRouter);
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`The server is running at: http://localhost:3000`);
+app.listen(PORT, () => {
+  console.log(`The server is running at: http://localhost:${PORT}`);
 });
