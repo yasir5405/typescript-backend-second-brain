@@ -16,6 +16,7 @@ app.use(
       "http://localhost:5173",
       "https://memora-delta.vercel.app",
       "https://www.memora-delta.vercel.app",
+      "https://www.me-mora.xyz",
     ],
   })
 );
