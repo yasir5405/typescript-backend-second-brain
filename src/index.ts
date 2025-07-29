@@ -1,34 +1,22 @@
 import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 import express from "express";
 import { userRouter } from "./routes/user.route";
 import cors from "cors";
 import { connectDB } from "./db/db";
 
-// Log uncaught errors (for Railway)
-process.on("uncaughtException", (err) => {
-  console.error("❌ Uncaught Exception:", err);
-});
-process.on("unhandledRejection", (err) => {
-  console.error("❌ Unhandled Rejection:", err);
-});
-
 connectDB();
 
 const app = express();
 app.use(express.json());
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:5173",
-//       "https://memora-delta.vercel.app",
-//       "https://www.memora-delta.vercel.app",
-//     ],
-//   })
-// );
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "http://localhost:5173",
+      "https://memora-delta.vercel.app",
+      "https://www.memora-delta.vercel.app",
+    ],
   })
 );
 
