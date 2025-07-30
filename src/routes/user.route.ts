@@ -107,12 +107,28 @@ userRouter.post("/login", async (req, res) => {
 });
 
 userRouter.get("/me", verifyJWT, async (req, res) => {
-  const user = req.body.user;
-  res.status(200).json({
-    success: true,
-    message: "Data fetched successfully.",
-    user: user,
-  });
+  try {
+    const user = (req as any).user;
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Authentication failed",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Data fetched successfully.",
+      user: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+      error: error,
+    });
+  }
 });
 
 userRouter.post("/contents", verifyJWT, async (req, res) => {

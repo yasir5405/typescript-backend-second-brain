@@ -82,12 +82,14 @@ const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
     const userObject = user.toObject();
     const { password: _, ...safeUser } = userObject;
 
-    req.body.user = safeUser;
+    (req as any).user = safeUser;
     next();
   } catch (error) {
-    return res
-      .status(500)
-      .json({ status: false, message: "Invalid or expired token." });
+    return res.status(500).json({
+      status: false,
+      message: "Invalid or expired token.",
+      error: error,
+    });
   }
 };
 
