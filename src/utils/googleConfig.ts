@@ -1,7 +1,10 @@
 import { google } from "googleapis";
 
+// console.log(process.env.GOOGLE_CLIENT_ID);
+// console.log(process.env.GOOGLE_CLIENT_SECRET);
+
 export const oauth2Client = new google.auth.OAuth2(
-  "738625864790-a7im8ocbs2ce63gv6corv546fjupoonu.apps.googleusercontent.com",
-  "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",
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
   "postmessage"
 );
