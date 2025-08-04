@@ -5,6 +5,7 @@ import express from "express";
 import { userRouter } from "./routes/user.route";
 import cors from "cors";
 import { connectDB } from "./db/db";
+import { authRouter } from "./routes/auth.route";
 
 connectDB();
 
@@ -18,6 +19,7 @@ app.use(
       "https://www.memora-delta.vercel.app",
       "https://www.me-mora.xyz",
     ],
+    credentials: true,
   })
 );
 
@@ -32,6 +34,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/v1", userRouter);
+app.use("/api/v1/auth", authRouter);
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`The server is running at: http://localhost:${PORT}`);

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { z, ZodError } from "zod";
+import { z } from "zod";
 import {
   comparePassword,
   hashPassword,

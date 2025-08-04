@@ -7,6 +7,8 @@ interface IUser extends Document {
   name: string;
   username: string;
   password: string;
+  googleId: string;
+  profileImage: string;
 }
 
 const userSchema = new Schema<IUser>({
@@ -21,7 +23,17 @@ const userSchema = new Schema<IUser>({
   },
   password: {
     type: String,
-    required: true,
+    required: false,
+  },
+  googleId: {
+    type: String,
+    required: false,
+    unique: true,
+  },
+  profileImage: {
+    type: String,
+    required: false,
+    default: "",
   },
 });
 
