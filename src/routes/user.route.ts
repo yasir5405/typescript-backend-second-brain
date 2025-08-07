@@ -52,7 +52,7 @@ userRouter.post(
 userRouter.post("/login", async (req, res) => {
   const requiredBody = z.object({
     username: z
-      .string()
+      .email()
       .min(4, { message: "Username should be at least 4 characters long." })
       .max(100, { message: "Username should be less than 100 characters." }),
     password: z
@@ -82,6 +82,14 @@ userRouter.post("/login", async (req, res) => {
     return res
       .status(404)
       .json({ status: false, message: "No user found with this username." });
+  }
+
+  if (user.googleId) {
+    return res.status(400).json({
+      status: false,
+      message:
+        "This account was created using Google login, please login using Google",
+    });
   }
 
   const isPasswordMatched = await bcrypt.compare(password, user.password);
