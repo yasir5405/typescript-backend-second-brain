@@ -139,8 +139,8 @@ userRouter.get("/me", verifyJWT, async (req, res) => {
   }
 });
 
-userRouter.post("/contents", verifyJWT, async (req, res) => {
-  const user = req.body.user;
+userRouter.post("/content", verifyJWT, async (req, res) => {
+  const user = (req as any).user;
 
   if (!user) {
     return res.status(403).json({ status: false, message: "Unauthorised." });
