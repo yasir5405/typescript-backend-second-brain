@@ -202,7 +202,7 @@ userRouter.post("/content", verifyJWT, async (req, res) => {
 });
 
 userRouter.get("/contents", verifyJWT, async (req, res) => {
-  const user = req.body.user;
+  const user = (req as any).user;
   try {
     const userDocuments = await ContentModel.find({
       userId: user._id,
